@@ -1,0 +1,76 @@
+<div class="sheet" ng-if="vm.showSidebarTutorial() &&  !vm.isThemeClean">
+  <i class="close h-icon-close" role="button" title="Fermer"
+     ng-click="vm.dismiss()"></i>
+  <h1 class="sidebar-tutorial__header">Comment commencer</h1>
+  <ol class="sidebar-tutorial__list">
+    <li class="sidebar-tutorial__list-item">
+      <p class="sidebar-tutorial__list-item-content">
+        Pour créer une annotation, sélectionnez un texte et cliquez sur
+        <i class="h-icon-annotate"></i>&nbsp;bouton.
+      </p>
+    </li>
+    <li class="sidebar-tutorial__list-item">
+      <p class="sidebar-tutorial__list-item-content">
+        Pour ajouter une note à la page que vous consultez, cliquez sur
+        <i class="h-icon-note"></i>&nbsp;bouton.
+      </p>
+    </li>
+    <li class="sidebar-tutorial__list-item">
+      <p class="sidebar-tutorial__list-item-content">
+        Pour créer une surbrillance, sélectionnez un texte et cliquez sur 
+        <i class="h-icon-highlight"></i>&nbsp;button.
+      </p>
+    </li>
+    <li class="sidebar-tutorial__list-item">
+      <p class="sidebar-tutorial__list-item-content">
+        Pour répondre à une annotation, cliquez sur le
+        <i class="h-icon-annotation-reply"></i>&nbsp;<strong>Répondre</strong>&nbsp;lien.
+      </p>
+    </li>
+    <li class="sidebar-tutorial__list-item">
+      <p class="sidebar-tutorial__list-item-content">
+        Pour partager une page annotée, cliquez sur
+        <i class="h-icon-annotation-share"></i>&nbsp;bouton en haut.
+      </p>
+    </li>
+    <li class="sidebar-tutorial__list-item">
+      <p class="sidebar-tutorial__list-item-content">
+        Pour créer un groupe privé, sélectionnez <strong>Publique</strong>,
+        ouvrez la liste déroulante, cliquez sur&nbsp;<strong>+&nbsp;Nouveau&nbsp;groupe</strong>.
+      </p>
+    </li>
+  </ol>
+</div>
+<div class="sheet sheet--is-theme-clean" ng-if="vm.showSidebarTutorial() && vm.isThemeClean">
+  <i class="close h-icon-close" role="button" title="Fermer"
+     ng-click="vm.dismiss()"></i>
+  <h1 class="sidebar-tutorial__header sidebar-tutorial__header--is-theme-clean">
+    <i class="h-icon-annotate sidebar-tutorial__header-annotate" h-branding="accentColor"></i>
+    Commencer à annoter
+  </h1>
+  <ol class="sidebar-tutorial__list">
+    <li class="sidebar-tutorial__list-item sidebar-tutorial__list-item--is-theme-clean">
+      <div class="sidebar-tutorial__list-item-content">
+        Sélectionnez un texte à
+          <span class="sidebar-tutorial__list-item-annotate">annotater</span>
+          <svg-icon class="sidebar-tutorial__list-item-cursor" name="'cursor'"></svg-icon>
+        ou surligner.
+      </div>
+    </li>
+    <li class="sidebar-tutorial__list-item sidebar-tutorial__list-item--is-theme-clean">
+      <div class="sidebar-tutorial__list-item-content sidebar-tutorial__list-item-content--is-theme-clean">
+        Créer des notes au niveau de la page
+        <span class="sidebar-tutorial__list-item-new-note-btn" h-branding="ctaBackgroundColor">
+          + Nouvelle note
+        </span>
+      </div>
+    </li>
+    <li class="sidebar-tutorial__list-item sidebar-tutorial__list-item--is-theme-clean">
+      <div class="sidebar-tutorial__list-item-content">
+        Afficher les annotations dans votre profil
+        <i class="h-icon-account sidebar-tutorial__list-item-profile"></i>
+        <i class="h-icon-arrow-drop-down sidebar-tutorial__list-item-drop-down"></i>
+      </div>
+    </li>
+  </ol>
+</div>

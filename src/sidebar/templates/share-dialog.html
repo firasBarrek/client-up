@@ -1,0 +1,42 @@
+<div class="sheet">
+  <i class="close h-icon-close"
+     role="button"
+     title="Fermer"
+     ng-click="vm.onClose()"></i>
+  <div class="form-vertical">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="">Partagez</a></li>
+    </ul>
+    <div class="tab-content">
+      <p>Partagez le lien ci-dessous pour montrer à quiconque ces annotations et invitez-les à contribuer.</p>
+      <p><input class="js-via form-input"
+          type="text"
+          ng-value="vm.viaPageLink"
+          readonly /></p>
+      <p class="share-link-icons">
+      <a href="https://twitter.com/intent/tweet?url={{vm.viaPageLink | urlEncode}}&hashtags=annotated"
+         target="_blank"
+         title="Tweet lien"
+         class="share-link-icon h-icon-twitter"
+         ng-click="onShareClick('twitter')"></a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u={{vm.viaPageLink | urlEncode}}"
+         target="_blank"
+         title="Partager sur Facebook"
+         class="share-link-icon h-icon-facebook"
+         ng-click="onShareClick('facebook')"></a>
+      <a href="https://plus.google.com/share?url={{vm.viaPageLink | urlEncode}}"
+         target="_blank"
+         title="Publier sur Google Plus"
+         class="share-link-icon h-icon-google-plus"
+         ng-click="onShareClick('googlePlus')"></a>
+      <a href="mailto:?subject=Let's%20Annotate&amp;body={{vm.viaPageLink}}"
+         target="_blank"
+         title="Partager par email"
+         class="share-link-icon h-icon-mail"
+         ng-click="onShareClick('email')"></a>
+      <a href="#" title="{{'Partager sur Plazza' | translate}}" ng-click="vm.onSharePlazza()" annotation="vm.annotation"><img src="http://10.241.109.147/Decoupes/plazza+logo+HD.png" style="width:35px;height:25px;"/></a>
+     
+      </p>
+    </div>
+  </div>
+</div>

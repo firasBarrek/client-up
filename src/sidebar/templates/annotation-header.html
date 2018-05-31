@@ -1,0 +1,49 @@
+<header class="annotation-header">
+  <!-- User -->
+
+ <!-- Excerpts -->
+  <section class="annotation-quote-list"
+    ng-if="vm.quote()">
+    <excerpt collapsed-height="35"
+      inline-controls="true"
+      overflow-hysteresis="20"
+      content-data="selector.exact">
+      <blockquote class="annotation-quote"
+        h-branding="selectionFontFamily"
+        ng-bind="vm.quote()"></blockquote>
+    </excerpt>
+
+
+  <span ng-if="vm.user()">
+  <span> {{'deposée par' | translate}} </span>
+    <a class="annotation-header__user"
+      target="_blank"
+      ng-if="!vm.isThirdPartyUser()"
+      ng-href="{{vm.serviceUrl('user',{user:vm.user()})}}"
+      >{{vm.displayName()}}</a>
+    <a class="annotation-header__user"
+      target="_blank"
+      ng-if="vm.isThirdPartyUser() && vm.thirdPartyUsernameLink()"
+      href="{{ vm.thirdPartyUsernameLink() }}"
+      >{{vm.displayName()}}</a>
+    <span class="annotation-header__user"
+      ng-if="vm.isThirdPartyUser() && !vm.thirdPartyUsernameLink()"
+      >{{vm.displayName()}}</span>
+   <span> {{'en' | translate}} </span>
+    <timestamp
+      class-name="'annotation-header__user'"
+      timestamp="vm.updated()"
+      href="vm.htmlLink()"
+      ng-if="!vm.editing() && vm.updated()" style="float:right;margin-left:5px;"></timestamp>
+</span>
+  </section>
+    <span class="annotation-collapsed-replies">
+      <a class="annotation-link" href=""
+        ng-click="vm.onReplyCountClick()"
+        ng-pluralize count="vm.replyCount"
+        when="{'0': '', 'une': '1 réponse', 'autres': '{} réponses'}"></a>
+    </span>
+
+ <!-- <span class="u-flex-spacer"></span>-->
+
+</header>

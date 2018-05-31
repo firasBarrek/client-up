@@ -1,0 +1,124 @@
+<header class="annotation-header" ng-if="!vm.user()">
+   <strong>{{'vous devez être connecté pour créer des annotations.' | translate}}</strong>  
+   <script src="./node_modules/angular-translate/dist/angular-translate.js"></script>
+</header>
+<div ng-keydown="vm.onKeydown($event)" class="all_annotation" ng-if="vm.user()">
+   <div ng-click="vm.actions(vm.annotation.id)" style="float:right;"><img src="http://10.241.109.147/Decoupes/left-arrow.png" style="width:25px;height:25px;"/></div>
+   <annotation-header annotation="vm.annotation" is-editing="vm.editing()" is-highlight="vm.isHighlight()" is-private="vm.state().isPrivate" on-reply-count-click="vm.onReplyCountClick()"                     reply-count="vm.replyCount"                     show-document-info="vm.showDocumentInfo">  </annotation-header>
+   <!-- Body -->  
+   <div class="annotation-body form-field">
+      <label for="title" class="title" ng-if="!vm.editing()">{{'titre' | translate}} </label>      
+      <markdown text="vm.state().title"                read-only="!vm.editing()" ng-if="!vm.editing()">      </markdown>
+      <label for="title" class="title" ng-if="vm.editing()">{{'titre' | translate}}</label>  <input class="form-input" type="text" name="title" ng-if="vm.editing()" ng-model="title" on-edit-text="vm.setTitle(title)"          ng-change="vm.setTitle(title)" placeholder="{{vm.state().title || vm.getLastTitle()}}" style="width:100%;"/>
+   </div>
+   <!-- Tags -->  
+   <div class="annotation-body form-field" ng-if="vm.editing()">
+      <span class="title">Tags </span>    
+      <tag-editor tags="vm.state().tags"                on-edit-tags="vm.setTags(tags)"></tag-editor>
+   </div>
+   <div class="annotation-body u-layout-row tags tags-read-only"       ng-if="(vm.canCollapseBody || vm.state().tags.length) && !vm.editing()">
+      <ul class="tag-list">
+         <li class="tag-item" ng-repeat="tag in vm.state().tags">        <a ng-href="{{vm.tagSearchURL(tag)}}" target="_blank">{{tag}}</a>      </li>
+      </ul>
+      <div class="u-stretch"></div>
+      <a class="annotation-link u-strong" ng-show="vm.canCollapseBody"      ng-click="vm.toggleCollapseBody($event)"      ng-title="vm.collapseBody ? 'Show the full annotation text' : 'Show the first few lines only'"      ng-bind="vm.collapseBody ? 'More' : 'Less'"      h-branding="accentColor"></a>  
+   </div>
+   <!-- / Tags --><!-- information annotation -->
+   <div style="margin-top:2px;"></div>
+   <div class="plusInfo" ng-click="vm.plusInfo(vm.annotation.id)" style="float:right;"><img src="http://10.241.109.147/Decoupes/points-512.png" style="width:25px;height:25px;"/></div>
+   <br>
+   <div class="infos{{vm.annotation.id}}" style="display:none;">
+      <span ng-if="!vm.state().text && !vm.state().complexite && !vm.state().fraicheur && vm.state().typesContenu.length==0  && !vm.state().rate && !vm.editing()" style="color:red;">{{"pas d'informations sur cette annotation" | translate}}</span>
+      <div style="display:inline-flex;" ng-if="!vm.editing()">
+         <div class="annotation-body form-field">
+            <span class="title" ng-if="vm.state().complexite || vm.editing()">{{'complexite' | translate}}</span>      
+            <markdown text="vm.state().complexite"                read-only="!vm.editing()" ng-if="!vm.editing()">      </markdown>
+         </div>
+         <div class="annotation-body form-field" style="margin-left:150px;">
+            <span class="title" ng-if="vm.state().fraicheur || vm.editing()">{{'fraicheur' | translate}}</span>      
+            <markdown ng-if="!vm.editing()" text="vm.state().fraicheur"                read-only="!vm.editing()" ng-if="!vm.editing()">      </markdown>
+         </div>
+      </div>
+      <div style="display:inline-flex;" ng-if="vm.editing()">
+         <div class="annotation-body form-field" style="margin-right:10px;">
+            <span class="title">{{'complexite' | translate}} </span>  
+            <select name="complexite" ng-if="vm.editing()" ng-model="complexite" on-edit-text="vm.setComplexite(complexite)"          ng-change="vm.setComplexite(complexite)" class="form-control">
+               <option value="" disabled>{{'complexite' | translate}}</option>
+               <option ng-selected="{{vm.state().complexite == 'Acculturation'}}" value="Acculturation">Acculturation</option>
+               <option ng-selected="{{vm.state().complexite == 'Base'}}" value="Base">Base</option>
+               <option ng-selected="{{vm.state().complexite == 'Operationnel'}}" value="Operationnel">Opérationnel</option>
+               <option ng-selected="{{vm.state().complexite == 'Avance'}}" value="Avance">Avancé</option>
+            </select>
+         </div>
+         <div class="annotation-body form-field">
+            <span class="title">{{'fraicheur' | translate}} </span>
+            <select name="fraicheur" ng-if="vm.editing()" ng-model="fraicheur" on-edit-text="vm.setFraicheur(fraicheur)"          ng-change="vm.setFraicheur(fraicheur)" class="form-control" >
+               <option value="" disabled>{{'fraicheur' | translate}}</option>
+               <option ng-selected="{{vm.state().fraicheur == 'Anticipation'}}" value="Anticipation">Anticipation</option>
+               <option ng-selected="{{vm.state().fraicheur == 'Actuel'}}" value="Actuel">Actuel</option>
+               <option ng-selected="{{vm.state().fraicheur == 'Pas à jour'}}" value="Pas à jour">Pas à jour</option>
+               <option ng-selected="{{vm.state().fraicheur == 'Obsolète'}}" value="Obsolète">Obsolète</option>
+            </select>
+         </div>
+      </div>
+      <div style="display:inline-flex;">
+         <div class="annotation-body form-field">
+            <span class="title" ng-if="vm.state().rate || vm.editing()">{{'interet' | translate}} </span>  
+            <div id="id{{vm.annotation.id}}" class="rating" ng-if="!vm.editing() && vm.state().rate"><span class="id{{vm.annotation.id}}rating5">☆</span><span class="id{{vm.annotation.id}}rating4">☆</span><span class="id{{vm.annotation.id}}rating3">☆</span><span class="id{{vm.annotation.id}}rating2">☆</span><span class="id{{vm.annotation.id}}rating1">☆</span>   </div>
+            <div id="id{{vm.annotation.id}}" class="rating" ng-if="vm.editing()"><span class="id{{vm.annotation.id}}rating5" ng-click="vm.rating(5)">☆</span><span class="id{{vm.annotation.id}}rating4" ng-click="vm.rating(4)">☆</span><span class="id{{vm.annotation.id}}rating3" ng-click="vm.rating(3)">☆</span><span class="id{{vm.annotation.id}}rating2" ng-click="vm.rating(2)">☆</span><span class="id{{vm.annotation.id}}rating1" ng-click="vm.rating(1)">☆</span>   </div>
+         </div>
+         <div class="annotation-body form-field" ng-if="vm.editing()" style="margin-left:70px;">
+            <span class="title">{{'type' | translate}} </span><br ng-if="vm.editing()" />  
+            <select name="type" ng-if="vm.editing()" ng-model="typeContenu" on-edit-text="vm.setTypesContenu(typeContenu)"          ng-change="vm.setTypesContenu(typeContenu)" class="form-control">
+               <option value="" disabled>{{'type' | translate}}</option>
+               <option ng-selected="{{vm.state().typesContenu[0] == 'Formation Présentielle'}}" value="Formation Présentielle">Formation Présentielle</option>
+               <option ng-selected="{{vm.state().typesContenu[0] == 'E_learning'}}" value="E_learning">E_learning</option>
+               <option ng-selected="{{vm.state().typesContenu[0] == 'Coding Dojo'}}" value="Coding Dojo">Coding Dojo</option>
+               <option ng-selected="{{vm.state().typesContenu[0] == 'Tutoriel Web'}}" value="Tutoriel Web">Tutoriel Web</option>
+               <option ng-selected="{{vm.state().typesContenu[0] == 'Recommendation'}}" value="Recommendation">Recommendation</option>
+               <option ng-selected="{{vm.state().typesContenu[0] == 'Orange'}}" value="Orange">Orange</option>
+               <option ng-selected="{{vm.state().typesContenu[0] == 'Rex'}}" value="Rex">Rex</option>
+            </select>
+         </div>
+         <div class="annotation-body"       ng-if="(vm.canCollapseBody || vm.state().typesContenu.length) && !vm.editing()" style="margin-left:124px;">
+            <span class="title">{{'type' | translate}} </span>      
+            <markdown text="vm.state().typesContenu[0]"                read-only="!vm.editing()" ng-if="!vm.editing()">      </markdown>
+         </div>
+      </div>
+      <div class="plusCommentaire" ng-click="vm.plusCommentaire(vm.annotation.id)"><img src="http://10.241.109.147/Decoupes/commentaire.png" style="width:25px;height:25px;"/></div>
+      <div class="Commentaire{{vm.annotation.id}}" style="display:none;">
+         <div class="annotation-body form-field">
+            <span class="title" ng-if="vm.editing()">{{'commentaire' | translate}} </span>  
+            <section name="text" class="annotation-body">
+               <excerpt enabled="!vm.editing()"      inline-controls="false"      on-collapsible-changed="vm.setBodyCollapsible(collapsible)"      collapse="vm.collapseBody"      collapsed-height="100"      overflow-hysteresis="20"      content-data="vm.state().text">
+                  <markdown text="vm.state().text"                custom-text-class="{'annotation-body is-hidden':vm.isHiddenByModerator(),                                    'has-content':vm.hasContent()}"                on-edit-text="vm.setText(text)"                read-only="!vm.editing()">      </markdown>
+               </excerpt>
+            </section>
+         </div>
+      </div>
+   </div>
+   <!-- /information annotation -->  <!-- / Body -->   
+   <footer class="annotation-footer">
+      <div class="annotation-form-actions" ng-if="vm.editing()">
+         <publish-annotation-btn        class="publish-annotation-btn"        group="vm.group()"        can-post="true"        is-shared="vm.isShared()"        on-cancel="vm.revert()"        on-save="vm.save()"        on-set-privacy="vm.setPrivacy(level)"></publish-annotation-btn>
+      </div>
+      <div class="annotation-section annotation-license"         ng-show="vm.shouldShowLicense()">      <a class="annotation-license__link" href="http://creativecommons.org/publicdomain/zero/1.0/"        title="Afficher plus d'informations sur la dédicace du domaine public Creative Commons"        target="_blank">        <i class="h-icon-cc-logo"></i><i class="h-icon-cc-zero"></i>        Les annotations peuvent être librement réutilisées par n'importe qui pour n'importe quel but.      </a>    </div>
+      <div class="annotation-replies" ng-if="!vm.isReply() && vm.replyCount > 0">      <a href=""        ng-click="vm.onReplyCountClick()">        <span class="annotation-replies__link">{{ vm.isCollapsed ? 'Afficher les réponses' : 'Masquer les réponses' }}</span>        <span class="annotation-replies__count">({{ vm.replyCount }})</span>      </a>    </div>
+      <div class="annotation-actions" ng-if="vm.isSaving">      {{'sauvegarde' | translate}}    </div>
+      <!--height:454px;margin-top:-420px;-->    
+      <div class="annotation-actions actions{{vm.annotation.id}}" ng-if="!vm.isSaving && !vm.editing() && vm.id()" style="opacity: 0.8;background-color:black;width:95%;padding-left: 16%;margin-top:-425px;margin-right:20px;display:none;">
+         <div ng-show="vm.isSaving">{{'sauvegarde' | translate}}</div>
+         <annotation-action-button        src="'http://10.241.109.147/Decoupes/Picto_modifier.png'"        is-disabled="vm.isDeleted()"        label="'modifier' | translate"        ng-show="vm.authorize('update') && !vm.isSaving"        on-click="vm.edit()"      ></annotation-action-button>
+         <annotation-action-button        src="'http://10.241.109.147/Decoupes/Picto_Effacer.png'"        is-disabled="vm.isDeleted()"        label="'effacer' | translate"        ng-show="vm.authorize('delete')"        on-click="vm.delete()"      ></annotation-action-button>
+         <!--<annotation-action-button        src="'http://10.241.109.147/Decoupes/Picto_Discuter.png'"        is-disabled="vm.isDeleted()"        label="'répondre' | translate"        on-click="vm.reply()"      ></annotation-action-button>-->      
+         <span class="annotation-share-dialog-wrapper" ng-if="vm.incontextLink()">
+            <annotation-action-button         src="'http://10.241.109.147/Decoupes/Picto_Partager.png'"         is-disabled="vm.isDeleted()"         label="'partager' | translate"         on-click="vm.showShareDialog = true"        ></annotation-action-button>
+            <annotation-share-dialog          group="vm.group()"          uri="vm.incontextLink()"          is-private="vm.state().isPrivate"          is-open="vm.showShareDialog"          on-close="vm.showShareDialog = false">        </annotation-share-dialog>
+         </span>
+         <span ng-if="vm.canFlag()">
+            <annotation-action-button         icon="'h-icon-annotation-flag'"         is-disabled="vm.isDeleted()"         label="'Signaler cette annotation aux modérateurs'"         ng-if="!vm.isFlagged()"         on-click="vm.flag()"        ></annotation-action-button>
+            <annotation-action-button         icon="'h-icon-annotation-flag annotation--flagged'"         is-disabled="vm.isDeleted()"         label="'L'annotation a été signalée aux modérateurs'"         ng-if="vm.isFlagged()"        ></annotation-action-button>
+         </span>
+      </div>
+   </footer>
+</div>

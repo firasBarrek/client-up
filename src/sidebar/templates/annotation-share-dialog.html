@@ -1,0 +1,52 @@
+<div class="annotation-share-dialog__backdrop"
+     ng-if="vm.isOpen"
+     ng-click="vm.onClose()"></div>
+<div class="annotation-share-dialog" ng-class="{'is-open': vm.isOpen}">
+  <div class="annotation-share-dialog-target">
+    <span class="annotation-share-dialog-target__label">{{'partager' | translate}}:</span>
+    <a href="https://twitter.com/intent/tweet?url={{vm.uri | urlEncode}}&hashtags=annotated"
+      target="_blank"
+      title="{{'Tweet lien' | translate}}"
+      class="annotation-share-dialog-target__icon h-icon-twitter"
+      ng-click="vm.onShareClick('twitter')"></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{vm.uri | urlEncode}}"
+      target="_blank"
+      title="{{'Partager sur Facebook' | translate}}"
+      class="annotation-share-dialog-target__icon h-icon-facebook"
+      ng-click="vm.onShareClick('facebook')"></a>
+    <a href="https://plus.google.com/share?url={{vm.uri | urlEncode}}"
+      target="_blank"
+      title="{{'Publier sur Google Plus' | translate}}"
+      class="annotation-share-dialog-target__icon h-icon-google-plus"
+      ng-click="vm.onShareClick('googlePlus')"></a>
+    <a href="mailto:?subject=Let's%20Annotate&amp;body={{vm.uri}}"
+      target="_blank"
+      title="{{'Partager par email' | translate}}"
+      class="annotation-share-dialog-target__icon h-icon-mail"
+      ng-click="vm.onShareClick('email')"></a>
+    <a href="#" title="{{'Partager sur Plazza' | translate}}" ng-click="vm.onSharePlazza()" annotation="vm.annotation"><img src="http://10.241.109.147/Decoupes/plazza+logo+HD.png" style="width:35px;height:25px;"/></a>
+  </div>
+  <div class="annotation-share-dialog-link" type="text">
+    <input class="annotation-share-dialog-link__text"
+      value="{{vm.uri}}" readonly>
+    <span class="annotation-share-dialog-link__feedback" ng-if="vm.copyToClipboardMessage">
+      {{vm.copyToClipboardMessage}}
+    </span>
+    <button class="btn btn-clean annotation-share-dialog-link__btn"
+      ng-click="vm.copyToClipboard($event)">
+      <i class="h-icon-clipboard btn-icon"></i>
+    </button>
+  </div>
+  <div class="annotation-share-dialog-msg" ng-if="vm.group && !vm.group.public && !vm.isPrivate">
+    <span class="annotation-share-dialog-msg__audience">
+      Groupe.
+    </span>
+    Seulement les membres du groupe peuvent voir cette annotation.
+  </div>
+  <div class="annotation-share-dialog-msg" ng-if="vm.isPrivate">
+    <span class="annotation-share-dialog-msg__audience">
+      Seulement moi.
+    </span>
+    Personne ne peut voir cette annotation.
+  </div>
+</div>

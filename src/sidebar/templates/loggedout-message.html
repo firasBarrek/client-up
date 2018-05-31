@@ -1,0 +1,16 @@
+<!-- message to display to loggedout users when they visit direct linked annotations -->
+<li class="loggedout-message">
+  <span>
+    Ceci est une annotation publique créée avec Hypothesis.
+    <br>
+    Pour répondre ou faire vos propres annotations sur ce document,
+    <a class="loggedout-message__link" href="{{vm.serviceUrl('signup')}}" target="_blank">créer un compte gratuit</a>
+    ou
+    <a class="loggedout-message__link" href="" ng-click="vm.onLogin()">s'identifier</a>.
+  </span>
+  <span class="loggedout-message-logo">
+    <a href="https://hypothes.is">
+      <i class="h-icon-hypothesis-logo loggedout-message-logo__icon"></i>
+    </a>
+  </span>
+</li>

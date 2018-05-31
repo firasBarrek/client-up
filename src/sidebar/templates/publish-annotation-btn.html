@@ -1,0 +1,24 @@
+<div dropdown="" class="publish-annotation-btn"  is-open="vm.showDropdown" keyboard-nav>
+   <dropdown-menu-btn    label="'poster à' | translate"  on-click="vm.onSave()" on-toggle-dropdown="vm.showDropdown = !vm.showDropdown"  title="Publiez cette annotation sur {{vm.publishDestination()}}" dropdown-menu-label="Change annotation sharing setting" is-disabled="!vm.canPost">  
+   </dropdown-menu-btn>
+   <div class="publish-annotation-btn__dropdown-container">
+      <ul class="dropdown-menu pull-center publishMenu group-list publish-annotation-btn__dropdown-menu" role="menu">
+         <li class="dropdown-menu__row" ng-click="vm.setPrivacy('shared')">
+            <div class="group-item">
+              <div class="group-icon-container">           
+                <i class="small" ng-class="'h-icon-' + vm.groupType()"></i>     
+              </div>
+              <div class="group-details">
+              <div class="group-name-container">          
+                <a href="" class="group-name-link" ng-bind="vm.group.name"></a>         
+              </div>
+               </div>
+            </div>
+         </li>
+         <!-- <li class="dropdown-menu__row" ng-click="vm.setPrivacy('private')"> <div class="group-item"><div class="group-icon-container"><i class="small h-icon-lock"></i></div><div class="group-details"><div class="group-name-container"> <a href="" class="group-name-link" ng-bind="vm.privateLabel | translate"></a></div></div> </div></li> -->    
+      </ul>
+   </div>
+</div>
+<button class="publish-annotation-cancel-btn" style="color:white;background-color:red;border:0;" ng-click="vm.onCancel()" title="Annuler les modifications apportées à cette annotation"        >
+  <i class="h-icon-cancel-outline publish-annotation-cancel-btn__icon btn-icon"></i> {{'annuler' | translate}}
+</button>

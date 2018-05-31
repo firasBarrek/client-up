@@ -1,0 +1,8 @@
+<button class="btn btn-clean annotation-action-btn" style="margin-right:20px;margin-top:50px;"
+  ng-click="vm.onClick()"
+  ng-disabled="vm.isDisabled"
+  aria-label="{{ vm.label }}"
+  h-tooltip>
+  <i ng-if="vm.icon" class="{{ vm.icon }} btn-icon"></i>
+  <img ng-if="vm.src" src="{{vm.src}}" width="30px" height="35px"/>
+</button>
