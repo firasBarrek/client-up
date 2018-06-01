@@ -28,7 +28,7 @@ var TAB_DEFAULT = uiConstants.TAB_ANNOTATIONS;
   */
 var TAB_SORTKEY_DEFAULT = {};
 TAB_SORTKEY_DEFAULT[uiConstants.TAB_ANNOTATIONS] = 'Position';
-TAB_SORTKEY_DEFAULT[uiConstants.TAB_NOTES] = 'Ancienne';
+TAB_SORTKEY_DEFAULT[uiConstants.TAB_NOTES] = 'Récente';
 TAB_SORTKEY_DEFAULT[uiConstants.TAB_ORPHANS] = 'Position';
 
 /**

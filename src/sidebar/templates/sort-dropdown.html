@@ -5,7 +5,7 @@
    <div class="dropdown-menu__top-arrow"></div>
    <ul class="dropdown-menu pull-right sortMenu" role="menu">
       <li class="dropdown-menu__row" ng-repeat="key in vm.sortKeysAvailable" ng-click="vm.onChangeSortKey({sortKey: key})" >
-        <span class="dropdown-menu-radio"        ng-class="{'is-selected' : vm.sortKey === key}" ></span>
+        <span class="dropdown-menu-radio" ng-class="{'is-selected' : vm.sortKey === key}" ></span>
         <a class="dropdown-menu__link" href="">{{key | translate}}</a>
       </li>
    </ul>

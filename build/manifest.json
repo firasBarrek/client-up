@@ -31,7 +31,7 @@
   "scripts/polyfills.bundle.js": "scripts/polyfills.bundle.js?f568b9",
   "scripts/raven.bundle.js": "scripts/raven.bundle.js?dcb1c0",
   "scripts/showdown.bundle.js": "scripts/showdown.bundle.js?fff9a7",
-  "scripts/sidebar.bundle.js": "scripts/sidebar.bundle.js?dfd9f3",
+  "scripts/sidebar.bundle.js": "scripts/sidebar.bundle.js?b5b2c6",
   "scripts/unorm.bundle.js": "scripts/unorm.bundle.js?5e23eb",
   "styles/angular-csp.css": "styles/angular-csp.css?e61a94",
   "styles/angular-toastr.css": "styles/angular-toastr.css?b84bea",
